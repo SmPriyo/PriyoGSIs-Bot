@@ -43,7 +43,7 @@ jobs:
          continue-on-error: true
          timeout-minutes: 10
          run: |
-              sudo chmod ~R 0777 ErfanGSIs
+              sudo chmod -R 0777 ErfanGSIs
               sudo bash ErfanGSIs/setup.sh
 
        - name: Generate config.prop
@@ -78,7 +78,7 @@ jobs:
          continue-on-error: true
          timeout-minutes: 350
          run: |
-              sudo chmod ~R 0777 *
+              sudo chmod -R 0777 *
               sudo java -jar BoboBot.jar
          
        - name: commit loop
