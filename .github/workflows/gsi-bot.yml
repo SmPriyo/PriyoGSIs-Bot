@@ -1,45 +1,35 @@
-name: Time To Run GSI Bot...
+name: Time To Build GSI
  
-on:
- #releasepush:
-    #pushbuild
-  watch: 
-      types: [started]
+on: push
 
 env:
   TYPE: build
-  TZ: Asia/Bangladesh
+  TZ: Asia/Manila
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     timeout-minutes: 525600
 
     steps:
        - name: Checkouts
          uses: actions/checkout@master
+     # Cleanup The Actions Workspace Using Custom Composite Run Actions
+       - uses: rokibhasansagar/slimhub_actions@main
+
          
        - name: Initializing environment
          continue-on-error: true
          timeout-minutes: 100
          run: |
               sudo -E apt-get -qq update
-              sudo -E apt-get -qq install bc build-essential zip curl libstdc++6 git wget python gcc clang libssl-dev repo rsync flex bison ccache openjdk-8-jdk
-              sudo -E apt-get install expect
-              docker rmi `docker images -q`
-              sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
-              sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* mysql* 
-              sudo -E apt-get update
-              sudo apt-get autoremove
-              sudo -E apt-get -y autoremove --purge
-              sudo -E apt-get clean 
-              sudo apt-get remove account-plugin-facebook account-plugin-flickr account-plugin-jabber account-plugin-salut account-plugin-twitter account-plugin-windows-live account-plugin-yahoo aisleriot brltty duplicity empathy empathy-common example-content gnome-accessibility-themes gnome-contacts gnome-mahjongg gnome-mines gnome-orca gnome-screensaver gnome-sudoku gnome-video-effects gnomine landscape-common libreoffice-avmedia-backend-gstreamer libreoffice-base-core libreoffice-calc libreoffice-common libreoffice-core libreoffice-draw libreoffice-gnome libreoffice-gtk libreoffice-impress libreoffice-math libreoffice-ogltrans libreoffice-pdfimport libreoffice-style-galaxy libreoffice-style-human libreoffice-writer libsane libsane-common mcp-account-manager-uoa python3-uno rhythmbox rhythmbox-plugins rhythmbox-plugin-zeitgeist sane-utils shotwell shotwell-common telepathy-gabble telepathy-haze telepathy-idle telepathy-indicator telepathy-logger telepathy-mission-control-5 telepathy-salut totem totem-common totem-plugins printer-driver-brlaser printer-driver-foo2zjs printer-driver-foo2zjs-common printer-driver-m2300w printer-driver-ptouch printer-driver-splix
+              sudo -E apt-get -qq install bc build-essential zip curl libstdc++6 git wget python gcc clang libssl-dev rsync flex bison ccache openjdk-8-jdk expect aria2
               git config --global user.name "SmPriyo"
               git config --global user.email "priyovevo@gmail.com"
-              git clone --recurse-submodules https://github.com/SmPriyo/ErfanGSIs
-              sudo apt-get install -y aria2
+              git clone --recurse-submodules https://github.com/SmPriyo/PGTools-ErfanGSIs ErfanGSIs
+              curl -sL https://git.io/file-transfer | sh
 
      
-       - name: Setup ErfanGSIs
+       - name: Setup Erfan Tools
          continue-on-error: true
          timeout-minutes: 10
          run: |
@@ -64,24 +54,24 @@ jobs:
              echo "bot-username=${{ secrets.BOTUN }}" >> "config.prop"
              echo "bot-token=${{ secrets.BOTKEY }}" >> "config.prop"
              echo "bot-master=${{ secrets.USERKEY }}" >> "config.prop"
+             echo "bot-submaster=${{ secrets.SUBKEY }}" >> "config.prop"
              touch sf-creds.config
              echo "#Config file" >> "sf-creds.config"
              echo "#Sun Nov 08 09:30:49 PST 2020" >> "sf-creds.config"
              echo "bot-sf-user=${{ secrets.SFUSER }}" >> "sf-creds.config"
              echo "bot-send-announcement=true" >> "sf-creds.config"
              echo "bot-sf-proj=${{ secrets.PROJECT }}" >> "sf-creds.config"
-             echo "bot-announcement-id=-1001401549638" >> "sf-creds.config"
+             echo "bot-announcement-id=-1001427383040" >> "sf-creds.config"
              echo "bot-sf-pass=${{ secrets.SFPASS }}" >> "sf-creds.config"
              echo "bot-sf-host=frs.sourceforge.net" >> "sf-creds.config"
-
-       - name: Run bobobot
+       - name: Run Bot
          continue-on-error: true
          timeout-minutes: 350
          run: |
               sudo chmod -R 0777 *
               sudo java -jar BoboBot.jar
          
-       - name: commit loop
+       - name: +1 
          continue-on-error: true
          timeout-minutes: 1
          run: |
@@ -92,7 +82,7 @@ jobs:
               git add .
               git commit -m "Loop workflow"
               
-       - name: Reruns
+       - name: Loop
          continue-on-error: true
          timeout-minutes: 5
          run: |
