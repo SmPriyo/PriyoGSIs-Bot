@@ -29,7 +29,7 @@ jobs:
               sudo -E apt-get -qq install bc build-essential zip curl libstdc++6 git wget python gcc clang libssl-dev rsync flex bison ccache openjdk-8-jdk expect aria2
               git config --global user.name "SmPriyo"
               git config --global user.email "priyovevo@gmail.com"
-              git clone --recurse-submodules https://github.com/SmPriyo/PGTools-ErfanGSIs ErfanGSIs
+              git clone --recurse-submodules https://github.com/SmPriyo/PGT-ErfanGSIs ErfanGSIs
               curl -sL https://git.io/file-transfer | sh
 
      
